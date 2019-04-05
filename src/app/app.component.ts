@@ -9,7 +9,8 @@ import {CarService} from './app/car.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
+  title = 'Cars';
   cars: Car[];
   error = '';
   success = '';
@@ -22,7 +23,14 @@ export class AppComponent implements OnInit{
     this.getCars();
   }
   getCars(): void {
-    this.carService
+    this.carService.getAll().subscribe(
+      (res: Car[]) => {
+        this.cars = res;
+      },
+    (err) => {
+        this.error = err;
+
+      });
   }
 
 
